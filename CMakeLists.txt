@@ -13,17 +13,17 @@ add_library(
 
 enable_testing()
 
-add_executable(${CMAKE_PROJECT_NAME}_tests_1 src/test/cpp/tests_1.cpp)
+add_executable(${PROJECT_NAME}_tests_1 src/test/cpp/tests_1.cpp)
 target_link_libraries(
-        ${CMAKE_PROJECT_NAME}_tests_1
+        ${PROJECT_NAME}_tests_1
         PUBLIC
         exqudens_strings
 )
 
-add_test(${CMAKE_PROJECT_NAME}_tests_1_test_1 ${CMAKE_PROJECT_NAME}_tests_1 test_1)
+add_test(${PROJECT_NAME}_tests_1_test_1 ${PROJECT_NAME}_tests_1 test_1)
 
 add_custom_command(
-        TARGET ${CMAKE_PROJECT_NAME}_tests_1
+        TARGET ${PROJECT_NAME}_tests_1
         POST_BUILD
         COMMAND ${CMAKE_CTEST_COMMAND} -C $<CONFIGURATION> --output-on-failure
 )
