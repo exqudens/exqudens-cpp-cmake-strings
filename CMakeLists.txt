@@ -7,7 +7,7 @@ include_directories(src/main/cpp)
 
 add_library(
         exqudens_strings
-        src/main/cpp/exqudens/strings.hpp
+        STATIC
         src/main/cpp/exqudens/strings.cpp
 )
 
@@ -27,3 +27,8 @@ add_custom_command(
         POST_BUILD
         COMMAND ctest -C $<CONFIGURATION> --output-on-failure
 )
+
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
+
+install(TARGETS exqudens_strings DESTINATION lib)
+install(FILES src/main/cpp/exqudens/strings.hpp DESTINATION include)
