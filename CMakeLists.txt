@@ -5,10 +5,20 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(src/main/cpp)
 
+SET(
+        EXQUDENS_STRINGS_HPP_FILES
+        src/main/cpp/exqudens/strings.hpp
+)
+
+SET(
+        EXQUDENS_STRINGS_CPP_FILES
+        src/main/cpp/exqudens/strings.cpp
+)
+
 add_library(
         exqudens_strings
         STATIC
-        src/main/cpp/exqudens/strings.cpp
+        ${EXQUDENS_STRINGS_CPP_FILES}
 )
 
 enable_testing()
