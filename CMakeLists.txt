@@ -35,7 +35,7 @@ add_custom_command(
 
 configure_file(version.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}-config-version.cmake" @ONLY)
 
-install(TARGETS ${LIBRARY_NAME} EXPORT ${LIBRARY_NAME} DESTINATION "lib/${LIBRARY_NAME}-${PROJECT_VERSION}")
-install(EXPORT ${LIBRARY_NAME} FILE "${LIBRARY_NAME}-config.cmake" DESTINATION "lib/${LIBRARY_NAME}-${PROJECT_VERSION}")
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}-config-version.cmake DESTINATION "lib/${LIBRARY_NAME}-${PROJECT_VERSION}")
-install(FILES src/main/cpp/exqudens/strings.hpp DESTINATION "include/${LIBRARY_NAME}-${PROJECT_VERSION}/exqudens")
+install(TARGETS ${LIBRARY_NAME} EXPORT ${LIBRARY_NAME} DESTINATION "${LIBRARY_NAME}-${PROJECT_VERSION}/lib")
+install(EXPORT ${LIBRARY_NAME} FILE "${LIBRARY_NAME}-config.cmake" DESTINATION "${LIBRARY_NAME}-${PROJECT_VERSION}")
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}-config-version.cmake DESTINATION "${LIBRARY_NAME}-${PROJECT_VERSION}")
+install(FILES src/main/cpp/exqudens/strings.hpp DESTINATION "${LIBRARY_NAME}-${PROJECT_VERSION}/include/exqudens")
