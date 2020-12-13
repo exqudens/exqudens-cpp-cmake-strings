@@ -3,23 +3,15 @@ project(exqudens_cpp_cmake_strings VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# include home configuration from user_home/.cmake/CMakeLists.txt
-if(DEFINED ENV{HOME})
-    set(HOME "$ENV{HOME}")
-    if (EXISTS "${HOME}/.cmake/CMakeLists.txt")
-        include("${HOME}/.cmake/CMakeLists.txt")
-    endif()
-elseif(DEFINED ENV{HOMEDRIVE} AND DEFINED ENV{HOMEPATH})
-    STRING(REPLACE "\\" "/" HOME "$ENV{HOMEDRIVE}$ENV{HOMEPATH}")
-    if (EXISTS "${HOME}/.cmake/CMakeLists.txt")
-        include("${HOME}/.cmake/CMakeLists.txt")
-    endif()
-endif()
+set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.cmake/packages")
+set(CMAKE_PREFIX_PATH "$ENV{HOME}/.cmake/packages")
+
+set(LIBRARY_NAME "exqudens_strings")
 
 include_directories(src/main/cpp)
 
 add_library(
-        exqudens_strings
+        ${LIBRARY_NAME}
         STATIC
         src/main/cpp/exqudens/strings.cpp
 )
@@ -41,6 +33,9 @@ add_custom_command(
         COMMAND ${CMAKE_CTEST_COMMAND} -C $<CONFIGURATION> --output-on-failure
 )
 
-install(TARGETS exqudens_strings EXPORT exqudens_strings DESTINATION "${PROJECT_NAME}-${PROJECT_VERSION}/lib")
-install(EXPORT exqudens_strings FILE exqudens_strings-config.cmake DESTINATION "${PROJECT_NAME}-${PROJECT_VERSION}")
-install(FILES src/main/cpp/exqudens/strings.hpp DESTINATION "${PROJECT_NAME}-${PROJECT_VERSION}/include/exqudens")
+configure_file(version.cmake.in "${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}-config-version.cmake" @ONLY)
+
+install(TARGETS ${LIBRARY_NAME} EXPORT ${LIBRARY_NAME} DESTINATION "lib/${LIBRARY_NAME}-${PROJECT_VERSION}")
+install(EXPORT ${LIBRARY_NAME} FILE "${LIBRARY_NAME}-config.cmake" DESTINATION "lib/${LIBRARY_NAME}-${PROJECT_VERSION}")
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}-config-version.cmake DESTINATION "lib/${LIBRARY_NAME}-${PROJECT_VERSION}")
+install(FILES src/main/cpp/exqudens/strings.hpp DESTINATION "include/${LIBRARY_NAME}-${PROJECT_VERSION}/exqudens")
