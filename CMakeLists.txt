@@ -1,10 +1,19 @@
 cmake_minimum_required(VERSION 3.17)
 project(exqudens_cpp_cmake_strings VERSION 1.0.0)
 
-set(CMAKE_CXX_STANDARD 20)
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    if(WIN32)
+        string(REPLACE "\\" "/" USER_HOME "$ENV{USERPROFILE}")
+        set(CMAKE_INSTALL_PREFIX "${USER_HOME}/.cmake/packages" CACHE PATH "..." FORCE)
+        set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}" CACHE PATH "..." FORCE)
+    elseif(UNIX)
+        set(USER_HOME "$ENV{HOME}" CACHE PATH "..." FORCE)
+        set(CMAKE_INSTALL_PREFIX "${USER_HOME}/.cmake/packages" CACHE PATH "..." FORCE)
+        set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}" CACHE PATH "..." FORCE)
+    endif()
+endif()
 
-set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.cmake/packages")
-set(CMAKE_PREFIX_PATH "$ENV{HOME}/.cmake/packages")
+set(CMAKE_CXX_STANDARD 20)
 
 set(LIBRARY_NAME "exqudens_strings")
 
