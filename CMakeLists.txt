@@ -6,8 +6,6 @@ project("${PROJECT_GROUP}-cpp-cmake-strings" VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
 
-message(STATUS "aaa: ${CMAKE_CURRENT_SOURCE_DIR}")
-
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
     file(
             DOWNLOAD
