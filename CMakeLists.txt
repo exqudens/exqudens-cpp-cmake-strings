@@ -6,9 +6,16 @@ project("${PROJECT_GROUP}-cpp-cmake-strings" VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include(extension.cmake)
+if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/extension.cmake")
+    file(
+            DOWNLOAD
+            "https://raw.githubusercontent.com/exqudens/exqudens-cmake/1.1.0/extension.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/extension.cmake"
+    )
+endif()
+include("${CMAKE_CURRENT_BINARY_DIR}/extension.cmake")
 
-directories(src/main/cpp)
+export_directories(src/main/cpp)
 
 add_library(
         exqudens-strings
@@ -16,7 +23,7 @@ add_library(
         src/main/cpp/exqudens/strings.cpp
 )
 
-library(exqudens-strings)
+export_library(exqudens-strings)
 
 enable_testing()
 
@@ -24,7 +31,7 @@ add_executable(${PROJECT_NAME}_tests_1 src/test/cpp/tests_1.cpp)
 target_link_libraries(
         ${PROJECT_NAME}_tests_1
         PUBLIC
-        ${LIBRARIES}
+        ${EXPORT_LIBRARIES}
 )
 
 add_test(${PROJECT_NAME}_tests_1_test_1 ${PROJECT_NAME}_tests_1 test_1)
