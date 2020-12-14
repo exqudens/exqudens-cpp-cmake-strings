@@ -66,7 +66,12 @@ macro(dependencies)
         FetchContent_MakeAvailable("${${dep}_NAME}")
 
         get_directory_property("${dep}_DIRECTORIES" DIRECTORY ${${${dep}_NAME}_SOURCE_DIR} DEFINITION DIRECTORIES)
-        include_directories("${dep}_DIRECTORIES")
+        foreach(d "${${dep}_DIRECTORIES}")
+            message(STATUS "include_directory: ${${${dep}_NAME}_SOURCE_DIR}/${d}")
+            include_directories("${${${dep}_NAME}_SOURCE_DIR}/${d}")
+        endforeach()
+
+        get_directory_property("${dep}_LIBRARIES" DIRECTORY ${${${dep}_NAME}_SOURCE_DIR} DEFINITION LIBRARIES)
 
     endforeach()
 endmacro()
