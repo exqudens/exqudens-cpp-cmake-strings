@@ -6,14 +6,16 @@ project("${PROJECT_GROUP}-cpp-cmake-strings" VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
 
-if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/extension.cmake")
+message(STATUS "aaa: ${CMAKE_CURRENT_SOURCE_DIR}")
+
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
     file(
             DOWNLOAD
             "https://raw.githubusercontent.com/exqudens/exqudens-cmake/1.1.0/extension.cmake"
-            "${CMAKE_CURRENT_BINARY_DIR}/extension.cmake"
+            "${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake"
     )
 endif()
-include("${CMAKE_CURRENT_BINARY_DIR}/extension.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
 
 export_directories(src/main/cpp)
 
