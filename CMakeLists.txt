@@ -9,11 +9,12 @@ set(CMAKE_CXX_STANDARD 20)
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
     file(
             DOWNLOAD
-            "https://raw.githubusercontent.com/exqudens/exqudens-cmake/1.1.0/extension.cmake"
+            "https://raw.githubusercontent.com/exqudens/exqudens-cmake/1.2.0/extension.cmake"
             "${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake"
     )
+else()
+    include("${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
 endif()
-include("${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
 
 export_directories(src/main/cpp)
 
@@ -23,7 +24,7 @@ add_library(
         src/main/cpp/exqudens/strings.cpp
 )
 
-export_library(exqudens-strings)
+export_libraries(exqudens-strings)
 
 enable_testing()
 
