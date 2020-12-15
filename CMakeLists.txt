@@ -12,9 +12,8 @@ if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
             "https://raw.githubusercontent.com/exqudens/exqudens-cmake/1.2.0/extension.cmake"
             "${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake"
     )
-else()
-    include("${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
 endif()
+include("${CMAKE_CURRENT_SOURCE_DIR}/extension.cmake")
 
 export_directories(src/main/cpp)
 
