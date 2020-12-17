@@ -21,18 +21,13 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}" CACHE PATH "..." FORCE)
 endif()
 
-add_library(${PROJECT_NAME} SHARED)
+add_library(${PROJECT_NAME} STATIC)
 target_sources(${PROJECT_NAME}
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp/exqudens/strings.hpp>
-        $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include/exqudens/strings.hpp>
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/main/cpp/exqudens/strings.cpp>
-        $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/lib/exqudens/strings.cpp>
+    PRIVATE
+        src/main/cpp/exqudens/strings.hpp
+        src/main/cpp/exqudens/strings.cpp
 )
 target_include_directories(${PROJECT_NAME}
-    INTERFACE
-        $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include/exqudens>
     PRIVATE
         src/main/cpp
 )
@@ -43,7 +38,7 @@ add_executable(${PROJECT_NAME}_tests_1 src/test/cpp/tests_1.cpp)
 target_link_libraries(${PROJECT_NAME}_tests_1
     INTERFACE
         src/main/cpp/exqudens/strings.hpp
-    PUBLIC
+    PRIVATE
         ${PROJECT_NAME}
 )
 target_include_directories(${PROJECT_NAME}_tests_1
@@ -67,17 +62,17 @@ configure_package_config_file(
     INSTALL_DESTINATION ${PROJECT_NAME}-${PROJECT_VERSION}/lib/cmake
 )
 
-set(version 3.4.1)
+#set(version 3.4.1)
 
-set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION ${version})
-set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION 3)
-set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION 3)
-set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
+#set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION ${version})
+#set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION 3)
+#set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VERSION 3)
+#set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
 # generate the version file for the config file
 write_basic_package_version_file(
         "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-        VERSION "${version}"
+        VERSION "${PROJECT_VERSION}"
         COMPATIBILITY AnyNewerVersion
 )
 
