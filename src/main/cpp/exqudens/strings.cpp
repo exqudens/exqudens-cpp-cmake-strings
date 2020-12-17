@@ -1,4 +1,4 @@
-#include "strings.hpp"
+#include "exqudens/strings.hpp"
 
 namespace exqudens {
 
